@@ -1,0 +1,182 @@
+﻿//--------------------ファイル設定----------------------------------
+
+#東方弾幕風
+#Title[sample]
+#Text[ここにコメントが入る]
+#Image[]//.\～でスクリーンショットを入れることができる
+#ScriptVersion[2]
+	
+
+//--------------------初期設定--------------------------------------
+
+script_enemy_main
+{
+
+//変数宣言
+
+	let XX=0;
+	let count;//弾を出す間隔を制御するための変数;
+	let count2;//弾を出す間隔を制御するための変数;
+	let cx;//変数cxに真ん中の座標を代入;
+	let RED47=1;let GREEN47=2;let BLUE47=3;let YELLOW47=4;let PURPLE47=5;let AQUA47=6;let ORANGE47=7;let WHITE47=8;
+
+	@Initialize
+	{
+		count=-100;//弾を出す間隔を制御するための変数;
+		count2=-100;//弾を出す間隔を制御するための変数;
+		cx=GetCenterX();//変数cxに真ん中の座標を代入;
+		SetGraphicRect(1,1,64,64);					// 描画元の矩形を(1,1)-(64,64)に設定.
+		LoadGraphic("script\img\ExRumia.png");		// script\img\ExRumia.pngをテクスチャに読みこみ.
+		LoadUserShotData(GetCurrentScriptDirectory~"HAL_pin.txt");
+
+	// スペルカードデータ
+		SetLife(3000);
+		SetScore(32000);
+		SetDamageRate(80, 50);
+		SetTimer(40);
+		SetText("サンプル弾幕");
+		
+		SetInvincibility(120);   // 開始数秒は無敵
+
+		// 初期位置
+        	SetMovePosition02(GetCenterX, GetCenterY / 2, 60);
+	}
+
+//---------------------メインループ---------------------------------
+			
+@MainLoop
+{
+
+	if (count==-80)
+	{
+		Concentration01(60);
+	}
+
+	if (count==1)
+	{
+		XX=GetClipMinX();
+	}
+
+	if(count>=40 && count<=70 && XX<=GetClipMaxX())
+	{
+
+		SetShotDirectionType(PLAYER);
+
+		CreateShot01(XX,GetY(),2,0,PURPLE47,10);
+
+		XX+=20;
+
+	}
+
+	if(count==150)
+	{
+
+		SetShotDirectionType(ABSOLUTE);
+
+		let angle=-180;
+		while(angle<180)
+		{
+
+			let speed = 4;
+			while(speed>=1)
+			{
+				CreateShotA(0,GetX(),GetY(),0);
+				SetShotDataA(0,0,1.5,angle,0.5,0,0,RED47);
+				SetShotDataA(0,100,speed,angle+20+rand(-2,2),0.5,0,0,RED47);
+				SetShotDataA(0,160,NULL,NULL,0,0,0,RED47);
+				FireShot(0);
+
+				speed=speed/1.2;
+			}
+
+			angle+=10;
+
+		}
+
+	}
+
+	if(count==180)
+	{
+
+		SetShotDirectionType(ABSOLUTE);
+
+		let angle=-180;
+		while(angle<180)
+		{
+
+			let speed = 4;
+			while(speed>=1)
+			{
+				CreateShotA(0,GetX(),GetY(),0);
+				SetShotDataA(0,0,1.5,angle,-0.52,0,0,RED47);
+				SetShotDataA(0,100,speed,angle-20+rand(-2,2),-0.52,0,0,RED47);
+				SetShotDataA(0,160,NULL,NULL,0,0,0,RED47);
+				FireShot(0);
+
+				speed=speed/1.2;
+			}
+
+			angle+=10;
+
+		}
+
+	}
+
+	if(count==210)
+	{
+
+		SetShotDirectionType(ABSOLUTE);
+
+		let angle=-180;
+		while(angle<180)
+		{
+
+			let speed = 4;
+			while(speed>=1)
+			{
+				CreateShotA(0,GetX(),GetY(),0);
+				SetShotDataA(0,0,1.5,angle,0.45,0,0,RED47);
+				SetShotDataA(0,100,speed,angle+20+rand(-2,2),0.45,0,0,RED47);
+				SetShotDataA(0,160,NULL,NULL,0,0,0,RED47);
+				FireShot(0);
+
+				speed=speed/1.2;
+			}
+
+			angle+=10;
+
+		}
+
+	}
+
+	if (count==300)
+	{
+		count=0;
+	}
+
+	SetCollisionA(GetX(),GetY(),32);//敵の座標に当たり判定を登録
+	SetCollisionB(GetX(),GetY(),24);//敵の座標に当たり判定(体当たり用)を登録
+	count++;//1フレーム毎にcountが1増加
+	count2++;//1フレーム毎にcountが1増加
+}
+		
+//----------------------グラフィック設定-----------------------------
+
+@DrawLoop
+{
+		// Exルーミア描画処理 #start
+		SetTexture("script\img\ExRumia.png");		// 描画元テクスチャをExルーミアに設定.
+		DrawGraphic(GetX(),GetY());					// 敵の座標にExルーミアを描画.
+		// Exルーミア描画処理 #end
+}
+//-------------------------------------------------------------------
+
+@Finalize
+{
+	DeleteGraphic("script\img\ExRumia.png");//読みこんだテクスチャを破棄
+}
+
+
+
+
+}//end
