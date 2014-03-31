@@ -1,4 +1,8 @@
-var p = [{
+var p = [
+{
+	start : 2,
+	pattern : "0"
+},{
 	start : 20,
 	pattern : "1"
 }, {
