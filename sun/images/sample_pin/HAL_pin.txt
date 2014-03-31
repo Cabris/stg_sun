@@ -1,0 +1,71 @@
+#UserShotData
+
+ShotImage = ".\img\pin.png"
+
+//役に立たないかもしれない説明
+//使うときは[RED47]って感じで
+//色は規定の[RED、GREEN、BLUE、YELLOW、PURPLE、AQUA、ORANGE、WHITE]
+//弾の画像の数字部分は47
+//例：AQUAの弾：AQUA47
+//
+//変数宣言の行に以下の行をコピペ(コピペしてから行始めの//は消してください)
+//		let RED47=1;let GREEN47=2;let BLUE47=3;let YELLOW47=4;let PURPLE47=5;let AQUA47=6;let ORANGE47=7;let WHITE47=8;
+//@Initializeの部分で以下のようにロードしてください
+//		LoadUserShotData(GetCurrentScriptDirectory~"HAL_pin.txt");
+
+ShotData //RED
+{
+	id = 1 
+	rect = (0,0,11,20) 
+	render = ALPHA 
+	delay_color = (255,128,128) 
+}
+ShotData //GREEN
+{
+	id = 2 
+	rect = (11,0,22,20) 
+	render = ALPHA 
+	delay_color = (128,255,128) 
+}
+ShotData //BULE
+{
+	id = 3 
+	rect = (22,0,33,20) 
+	render = ALPHA 
+	delay_color = (128,128,255) 
+}
+ShotData //YELLOW
+{
+	id = 4 
+	rect = (33,0,44,20) 
+	render = ALPHA 
+	delay_color = (255,255,128) 
+}
+ShotData //PURPLE
+{
+	id = 5 
+	rect = (0,20,11,40) 
+	render = ALPHA 
+	delay_color = (255,128,255) 
+}
+ShotData //AQUA
+{
+	id = 6 
+	rect = (11,20,22,40) 
+	render = ALPHA 
+	delay_color = (128,255,255) 
+}
+ShotData //ORANGE
+{
+	id = 7 
+	rect = (22,20,33,40) 
+	render = ALPHA 
+	delay_color = (255,200,128) 
+}
+ShotData //WHITE
+{
+	id = 8 
+	rect = (33,20,44,40) 
+	render = ALPHA 
+	delay_color = (255,255,255) 
+}
