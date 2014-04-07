@@ -30,7 +30,7 @@ Crafty.c("Enemy", {
 		});
 		this.x=0;
 		this.y=0;
-		
+		this.z=zIndex.Enemy;
 		return this;
 	},
 	setPos : function(_x, _y) {
@@ -43,4 +43,6 @@ Crafty.c("Enemy", {
 		//this.hp-=bullet.weapon.ap;
 		Crafty.audio.play("enemy_vanish1",1,0.8);
 	}
+	
+	
 });

@@ -1,27 +1,38 @@
-var p = [
-{
-	start : 2,
-	pattern : "0"
-},{
+var ps1 = [{
+	start : 60,
+	pattern : "4"
+}];
+
+var ps2 = [{
 	start : 20,
 	pattern : "1"
 }, {
 	start : 80,
 	pattern : "2"
+}, {
+	start : 120,
+	pattern : "3"
+}, {
+	start : 180,
+	pattern : "4"
+}, {
+	start : 240,
+	pattern : "5"
 }];
 
 Crafty.c("Luncher", {
-	events : p,
-	//frameCount : 0,
+	events : ps1,
 	init : function() {
 		this.frameCount = 0;
 		this.bind("EnterFrame", function(frame) {
 			this.frameCount += 1;
 			var fc = this.frameCount;
 			var _this = this;
-			this.events.every(function(e) {
+			this.events.forEach(function(e) {
 				if (e.start == fc) {
-					_this.addComponent("Pattern" + e.pattern);
+					//console.log("p" + e.pattern + ":" + fc);
+					var pattern=Crafty.e("p" + e.pattern);			
+					pattern.setLuncher(_this);
 				}
 			});
 		});
@@ -29,13 +40,3 @@ Crafty.c("Luncher", {
 	}
 });
 
-Crafty.c("PlayerAim", {
-	aimPlayerAngle : 0,
-	init : function() {
-		this.bind("EnterFrame", function(frame) {
-			var player = Crafty("Player");
-			this.aimPlayerAngle = Math.atan2(player.y - this.y, player.x - this.x);
-		});
-		return this;
-	}
-});

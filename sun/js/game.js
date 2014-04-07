@@ -4,12 +4,11 @@ Game = {
 		// Start crafty and set a background color so that we can see it's working
 		//var stageDiv = document.getElementById("cr-stage");
 		Crafty.init(600, 800);
-
 		Crafty.canvas.init();
 		//Set canvas under interface
 		Crafty.canvas._canvas.style.zIndex = '1';
 		Crafty.timer.steptype("variable");
-		Crafty.background('black');
+		Crafty.background('green');
 
 		var toLoad = [];
 		for (var i in Crafty.assets) {
