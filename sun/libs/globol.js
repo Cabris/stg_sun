@@ -5,6 +5,18 @@ var zIndex={
 	Bullet:12
 };
 
+var Com={
+	player:"Player",
+	enemy:"Enemy",
+	luncher:"Luncher",
+	playerWeapon:"PlayerWeapon",
+	bullet:"Bullet",
+	enemyBullet:"EnemyBullet",
+	playerAimer:"PlayerAim",
+	trackBullet:"TrackBullet",
+	modifierContainer:"ModifierContainer"
+};
+
 var shotDatas = {
 };
 

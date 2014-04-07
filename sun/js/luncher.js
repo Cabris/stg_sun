@@ -21,22 +21,35 @@ var ps2 = [{
 }];
 
 Crafty.c("Luncher", {
-	events : ps1,
+	events : ps2,
+	patterns : null,
 	init : function() {
+		this.patterns = [];
+		console.log(this.patterns);
 		this.frameCount = 0;
-		this.bind("EnterFrame", function(frame) {
-			this.frameCount += 1;
-			var fc = this.frameCount;
-			var _this = this;
-			this.events.forEach(function(e) {
-				if (e.start == fc) {
-					//console.log("p" + e.pattern + ":" + fc);
-					var pattern=Crafty.e("p" + e.pattern);			
-					pattern.setLuncher(_this);
-				}
-			});
-		});
+		this.bind("EnterFrame", this.onUpdate);
+		this.bind("Remove", this.onDestroy);
 		return this;
+	},
+	onUpdate : function(frame) {
+		this.frameCount += 1;
+		var fc = this.frameCount;
+		var _this = this;
+		this.events.forEach(function(e) {
+			if (e.start == fc) {
+				console.log(_this.patterns);
+				var pattern = Crafty.e("p" + e.pattern);
+				pattern.setLuncher(_this);
+				_this.patterns.push(pattern);
+			}
+		});
+	},
+	onDestroy : function() {
+		this.unbind("EnterFrame", this.onUpdate);
+		this.patterns.forEach(function(e) {
+			e.destroy();
+		});
+		
 	}
 });
 

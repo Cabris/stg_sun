@@ -79,7 +79,7 @@ Crafty.c("Bullet", {
 
 
 
-Crafty.c("EnemyBullet", {
+Crafty.c(Com.enemyBullet, {
 	init : function() {
 		this.requires("Bullet,Collision");
 		this.onHit("PlayerCollider", function(ent) {
@@ -87,4 +87,10 @@ Crafty.c("EnemyBullet", {
 		});
 		return this;
 	},
+	toPoint:function(){
+		this.a=0;
+		this.v=250;
+		this.addComponent(Com.playerAimer);
+		this.endTrackTime=9999;
+	}
 });

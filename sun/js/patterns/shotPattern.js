@@ -33,7 +33,11 @@ ShotPattern.prototype.onEachShot = function(frame) {
 };
 ShotPattern.prototype.onUpdate = function(frame) {
 	if (this.frameCount % this.shotInterval == 0 && (this.loopCount < this.loop || this.loop < 0)) {
+		
+		
 		this.onEachShot(frame);
+		//console.log(this);
+		//console.log(this.toString()+":onEachShot,loop=" + this.loop);
 		this.loopCount++;
 	}
 	this.frameCount += 1;
