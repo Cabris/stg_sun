@@ -43,7 +43,7 @@ Crafty.c("PlayerAim", {
 	},
 	aimPlayerAngle : function() {
 		var player = Crafty("Player");
-		var playerAngle = Crafty.math.radToDeg(Math.atan2(player.y - this.y, player.x - this.x));
+		var playerAngle = Crafty.math.radToDeg(Math.atan2(player.center.y - this.y, player.center.x - this.x));
 		//console.log("aimPlayerAngle: " + playerAngle);
 		return playerAngle;
 	}
@@ -52,10 +52,11 @@ Crafty.c("PlayerAim", {
 Crafty.c("TrackBullet", {
 	startTrackTime : 0,
 	endTrackTime : 0,
+	diffRange : 10,
 	init : function() {
 		this.requires("Bullet,PlayerAim");
 		this.bind("EnterFrame", this.track);
-		this.diff=Crafty.math.randomInt(-10, 10);
+		this.diff = Crafty.math.randomInt(-this.diffRange, this.diffRange);
 		this.bind("RemoveComponent", function(component) {
 			if (component == "TrackBullet")
 				this.unbind("EnterFrame", this.track);
@@ -63,16 +64,28 @@ Crafty.c("TrackBullet", {
 		return this;
 	},
 	track : function(frame) {
-		if(this.frameCount>this.startTrackTime&&this.frameCount<this.endTrackTime){
-			this.moveAngle = this.aimPlayerAngle()+this.diff;
-		//	console.log("TrackBullet");
+		if (this.frameCount > this.startTrackTime && this.frameCount < this.endTrackTime) {
+			this.moveAngle = this.aimPlayerAngle() + this.diff;
 		}
-		if(this.frameCount>=this.endTrackTime){
+		if (this.frameCount >= this.endTrackTime) {
 			this.unbind("EnterFrame", this.track);
 			this.removeComponent("TrackBullet");
 		}
 	}
 });
+
+function randomInt(a, b) {
+	return Crafty.math.randomInt(a, b);
+}
+
+function insideView(obj) {
+	var t = obj.x > Crafty.viewport.width + obj.w 
+	|| obj.x < -obj.w 
+	|| obj.y < -obj.h 
+	|| obj.y > Crafty.viewport.height + obj.h;
+	//console.log(!t);
+	return !t;
+}
 
 // CatStrings("one");        // result = one
 // CatStrings("one",2);      // result = one2

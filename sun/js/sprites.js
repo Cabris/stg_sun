@@ -6,6 +6,10 @@ Crafty.sprite(12, 12, game_path + "images/playerCollision.png", {
 	sprite_player_collision : [0, 0]
 });
 
+Crafty.sprite(19, 19, game_path + "images/sunflower.png", {
+	sprite_sunflower : [0, 0]
+});
+
 Crafty.sprite(27, 36, game_path + "images/weapon2.png", {
 	sprite_bullet1 : [0, 0]
 });

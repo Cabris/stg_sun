@@ -1,5 +1,4 @@
 Crafty.c("PlayerWeapon", {
-	// player : null,
 	isAbleFire : false,
 	interval : 5,
 	ap : 1,
@@ -51,7 +50,7 @@ Crafty.c("Bullet", {
 	frameCount : 0,
 	init : function() {
 		this.requires("2D,Canvas,Collision").bind("EnterFrame", function(frame) {
-			if (this.x > Crafty.viewport.width + this.w || this.x < -this.w || this.y < -this.h || this.y > Crafty.viewport.height + this.h) {
+			if (!insideView(this)) {
 				this.destroy();
 			}
 			var dt = frame.dt / 1000.0;
@@ -77,9 +76,8 @@ Crafty.c("Bullet", {
 	}
 });
 
-
-
 Crafty.c(Com.enemyBullet, {
+	luncher : null,
 	init : function() {
 		this.requires("Bullet,Collision");
 		this.onHit("PlayerCollider", function(ent) {
@@ -87,10 +85,10 @@ Crafty.c(Com.enemyBullet, {
 		});
 		return this;
 	},
-	toPoint:function(){
-		this.a=0;
-		this.v=250;
-		this.addComponent(Com.playerAimer);
-		this.endTrackTime=9999;
+	toPoint : function() {
+		var point = Crafty.e(Com.point);
+		point.x = this.x;
+		point.y = this.y;
+		this.destroy();
 	}
 });

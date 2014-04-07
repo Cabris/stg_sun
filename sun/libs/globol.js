@@ -14,7 +14,8 @@ var Com={
 	enemyBullet:"EnemyBullet",
 	playerAimer:"PlayerAim",
 	trackBullet:"TrackBullet",
-	modifierContainer:"ModifierContainer"
+	modifierContainer:"ModifierContainer",
+	point:"Point"
 };
 
 var shotDatas = {

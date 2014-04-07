@@ -7,9 +7,11 @@ ShotPattern = function() {
 	this.loop = 0;
 	this.loopCount = 0;
 	this.luncher = null;
-	this.bulletId=1;
+	this.bulletId = 1;
+	this.intervalAngle = 0;
 };
-ShotPattern.prototype.onInited=function(){};
+ShotPattern.prototype.onInited = function() {
+};
 ShotPattern.prototype.setLuncher = function(luncher) {
 	this.addComponent("2D");
 	this.luncher = luncher;
@@ -29,13 +31,17 @@ ShotPattern.prototype.init = function() {
 	//this.addComponent("PlayerAim");
 	return this;
 };
-ShotPattern.prototype.onEachShot = function(frame) {
+ShotPattern.prototype.onEachShot = function(frame, i) {
+	return null;
 };
 ShotPattern.prototype.onUpdate = function(frame) {
 	if (this.frameCount % this.shotInterval == 0 && (this.loopCount < this.loop || this.loop < 0)) {
-		
-		
-		this.onEachShot(frame);
+		this.intervalAngle = this.shotRange / this.shots;
+		for (var i = 0; i < this.shots; i++) {
+			var bullet = this.onEachShot(frame, i);
+			bullet.luncher = this.luncher;
+			//console.log(bullet);
+		}
 		//console.log(this);
 		//console.log(this.toString()+":onEachShot,loop=" + this.loop);
 		this.loopCount++;
