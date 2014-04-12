@@ -87,12 +87,7 @@ function insideView(obj) {
 	return !t;
 }
 
-// CatStrings("one");        // result = one
-// CatStrings("one",2);      // result = one2
-// CatStrings("one",2,true); // result = one2true
 
-// function createBullet(id) {//3,2
-// var bullet = Crafty.e("Bullet", id).origin("center");
-// return bullet;
-// }
+
+
 

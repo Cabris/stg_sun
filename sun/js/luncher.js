@@ -31,7 +31,7 @@ Crafty.c("Luncher", {
 	patterns : null,
 	init : function() {
 		this.patterns = [];
-		console.log(this.patterns);
+		//console.log(this.patterns);
 		this.frameCount = 0;
 		this.bind("EnterFrame", this.onUpdate);
 		this.bind("Remove", this.onDestroy);
