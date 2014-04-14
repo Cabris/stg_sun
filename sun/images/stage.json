@@ -1,0 +1,68 @@
+{"frames": {
+
+"enemy.png":
+{
+	"frame": {"x":2,"y":2,"w":62,"h":74},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":62,"h":74},
+	"sourceSize": {"w":62,"h":74}
+},
+"player.png":
+{
+	"frame": {"x":2,"y":78,"w":41,"h":43},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":41,"h":43},
+	"sourceSize": {"w":45,"h":45}
+},
+"playerCollision.png":
+{
+	"frame": {"x":108,"y":2,"w":12,"h":12},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
+	"sourceSize": {"w":12,"h":12}
+},
+"power.png":
+{
+	"frame": {"x":74,"y":2,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"sunflower.png":
+{
+	"frame": {"x":66,"y":36,"w":19,"h":19},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":19},
+	"sourceSize": {"w":19,"h":19}
+},
+"weapon1.png":
+{
+	"frame": {"x":66,"y":2,"w":5,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":13},
+	"sourceSize": {"w":5,"h":13}
+},
+"weapon2.png":
+{
+	"frame": {"x":45,"y":78,"w":27,"h":36},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":27,"h":36},
+	"sourceSize": {"w":27,"h":36}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "stage.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":128},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:3a95ccf676e9d04e0448eb04fb7757b5$"
+}
+}

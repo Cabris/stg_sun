@@ -11,7 +11,7 @@ Crafty.c("Player", {
 	},
 	init : function() {
 
-		this.requires("2D,Canvas,Multiway,Keyboard,sprite_ship1")//Add needed Components
+		this.requires("2D,Canvas,Multiway,Keyboard,player.png")//Add needed Components
 		.multiway(this.movementSpeed, this.moveControls).origin("center").bind('Moved', function(from) {/*Bind a function which is triggered if player is moved*/
 			/*Dont allow to move the player out of Screen*/
 			if (this.x + this.w > Crafty.viewport.width//r
@@ -30,9 +30,9 @@ Crafty.c("Player", {
 				if (this.weapon != null)
 					this.weapon.shot();
 			}
-
+			this.rotation += 0.5;
 			if (this.isSlow) {
-				this.multiway(this.movementSpeed* 0.45, this.moveControls);
+				this.multiway(this.movementSpeed * 0.45, this.moveControls);
 			} else {
 				this.multiway(this.movementSpeed, this.moveControls);
 			}

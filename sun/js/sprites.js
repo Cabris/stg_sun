@@ -27,22 +27,7 @@ Crafty.sprite(62, 74, game_path + "images/enemy.png", {
 });
 
 loadBulletSprite(); 
+//CraetePixiSprite("player.png");
 
-Crafty.c("MySprite", {
 
-	setPos : function(_x, _y) {
-		this.attr({
-			x : _x - this.w / 2,
-			y : _y - this.h / 2
-		});
-	},
-	init : function() {
-		this.requires("2D,Canvas").origin("center").bind("EnterFrame", function(frame) {
-			if (this.parent != null) {
-				//this.x = this.parent.x - this.w / 2;
-				//this.y = this.parent.y - this.h / 2;
-			}
-		});
-		return this;
-	}
-});
+

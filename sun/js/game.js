@@ -1,60 +1,71 @@
-Game = {
-	//renderer : null,
-	// Initialize and start our game
+var Game = {
+	PixiStage : null,
+	PixiRenderer : null,
+	load : function() {
+		var assetsToLoader = ["images/stage.json", "images/bullet/kuushot.json"];
+		loader = new PIXI.AssetLoader(assetsToLoader);
+
+		function onAssetsLoading(asset) {
+			var frames = [];
+			console.log("asset loaded: " + asset.url);
+
+			for (var propertyName in asset.json.frames) {
+				frames.push(propertyName.toString());
+			}
+
+			frames.forEach(function(e) {
+				console.log("loaded: " + e);
+				CraetePixiSprite(e);
+			});
+		}
+
+		function onAssetsLoaded() {
+			console.log("all assets loaded");
+			Game.start();
+		}
+
+
+		loader.onProgress = onAssetsLoading;
+		loader.onComplete = onAssetsLoaded;
+		loader.load();
+	},
 	start : function() {
+
+		console.log("start game");
 		// Start crafty and set a background color so that we can see it's working
 		var stageDiv = document.getElementById("cr-stage");
-		Crafty.init(600, 800);
+		Crafty.init(screenSize.w, screenSize.h);
 
-		var renderer = PIXI.autoDetectRenderer(600, 800);
-		renderer.view.className = "rendererView";
-		console.log(renderer);
+		Game.PixiRenderer = PIXI.autoDetectRenderer(screenSize.w, screenSize.h);
+		Game.PixiRenderer.view.className = "rendererView";
+		stageDiv.appendChild(Game.PixiRenderer.view);
 
-		var draw = function() {
-			renderer.render(stage);
-		};
+		Game.PixiStage = new PIXI.Stage(0xFFFFFF);
 
-		// add render view to DOM
-		stageDiv.appendChild(renderer.view);
+		PixiSpriteBatch = new PIXI.SpriteBatch();
+		Game.PixiStage.addChild(PixiSpriteBatch);
 
-		// create an new instance of a pixi stage
-		var stage = new PIXI.Stage(0xFFFFFF);
-
-		// create a background texture
-		var pondFloorTexture = PIXI.Texture.fromImage("BGrotate.jpg");
-		// create a new background sprite
-		var pondFloorSprite = new PIXI.Sprite(pondFloorTexture);
-		stage.addChild(pondFloorSprite);
-
-		//Crafty.canvas.init();
-		//Set canvas under interface
-		//Crafty.canvas._canvas.style.zIndex = '1';
 		Crafty.timer.steptype("variable");
 		Crafty.background('green');
 
-		var toLoad = [];
-		for (var i in Crafty.assets) {
-			toLoad.push(i);
+		Crafty.scene("Level1");
+		Crafty.uniqueBind("RenderScene", Game.draw);
+	},
+	draw : function() {
+		Game.PixiRenderer.render(Game.PixiStage);
+	},
+	sortLayer : function() {
+		function depthCompare(a, b) {
+			if (a.z < b.z)
+				return -1;
+			if (a.z > b.z)
+				return 1;
+			return 0;
 		}
 
-		Crafty.load(toLoad, function() {
-			//Everything is loaded
-			console.log("Everything is loaded");
 
-		}, function(e) {
-			var src = e.src || "";
-
-			//update progress
-			console.log("Loading " + src.substr(src.lastIndexOf('/') + 1).toLowerCase() + " Loaded: " + ~~e.percent + "%");
-
-		}, function(e) {
-			//uh oh, error loading
-			var src = e.src || "";
-			console.log("Error on loading: " + src.substr(src.lastIndexOf('/') + 1).toLowerCase());
-		});
-
-		Crafty.scene("Level1");
-
-		Crafty.uniqueBind("RenderScene", draw);
+		PixiSpriteBatch.children.sort(depthCompare);
+		//console.log(PixiSpriteBatch.children);
 	}
 };
+
