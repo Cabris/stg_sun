@@ -26,7 +26,7 @@ Crafty.sprite(62, 74, game_path + "images/enemy.png", {
 	sprite_enemy1 : [0, 0]
 });
 
-loadBulletSprite(); 
+//loadBulletSprite(); 
 //CraetePixiSprite("player.png");
 
 

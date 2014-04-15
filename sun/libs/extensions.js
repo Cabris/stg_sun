@@ -1,28 +1,4 @@
-function createEnemyBullet(mx, my) {//3,2
-	var bullet = Crafty.e("EnemyBullet", "sprite_bullet_normal", "SpriteAnimation").origin("center");
-	bullet.reel("normal_bullet_colors", 0, mx, my, 1).animate("normal_bullet_colors", 1);
-	bullet.v = 1200;
-	//console.log("10");
-	return bullet;
-}
 
-function createBullet(mx, my) {//3,2
-	var bullet = Crafty.e("Bullet", "sprite_bullet_normal", "SpriteAnimation").origin("center");
-	bullet.reel("normal_bullet_colors", 0, mx, my, 1).animate("normal_bullet_colors", 1);
-	bullet.v = 1200;
-	//console.log("10");
-	return bullet;
-}
-
-function createBulletById(id) {//3,2
-	var bullet = Crafty.e("Bullet", id).origin("center");
-	//bullet.reel("normal_bullet_colors", 0, mx, my, 1).animate("normal_bullet_colors", 1);
-	bullet.v = 1200;
-	var circle = new Crafty.circle(this.w / 2, this.h / 2, this.w * 0.5);
-	bullet.collision(circle);
-	//console.log("created: "+id);
-	return bullet;
-}
 
 function loadBulletSprite() {
 	var path = "images/bullet/kuushot.png";
@@ -32,6 +8,7 @@ function loadBulletSprite() {
 		var r = s.Rect;
 		//console.log(r);
 		shotMap["bullet_" + s.Id] = [r.x, r.y, r.w, r.h];
+		console.log("des");
 	}
 	Crafty.sprite(game_path + path, shotMap);
 }
@@ -43,7 +20,7 @@ Crafty.c("PlayerAim", {
 	},
 	aimPlayerAngle : function() {
 		var player = Crafty("Player");
-		var playerAngle = Crafty.math.radToDeg(Math.atan2(player.center.y - this.y, player.center.x - this.x));
+		var playerAngle = Crafty.math.radToDeg(Math.atan2(player.y - this.y, player.x - this.x));
 		//console.log("aimPlayerAngle: " + playerAngle);
 		return playerAngle;
 	}

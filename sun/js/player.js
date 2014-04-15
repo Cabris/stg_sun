@@ -5,39 +5,34 @@ Crafty.c("Player", {
 	playerCollision : null,
 	movementSpeed : 8,
 	preparing : false,
-	center : {
-		x : 0,
-		y : 0
-	},
 	init : function() {
 
 		this.requires("2D,Canvas,Multiway,Keyboard,player.png")//Add needed Components
 		.multiway(this.movementSpeed, this.moveControls).origin("center").bind('Moved', function(from) {/*Bind a function which is triggered if player is moved*/
 			/*Dont allow to move the player out of Screen*/
-			if (this.x + this.w > Crafty.viewport.width//r
+			if (this.x  > Crafty.viewport.width//r
 			|| this.x < 0//l
-			|| this.y < 30//t
-			|| this.y + this.h > Crafty.viewport.height - 30//d
+			|| this.y < 0//t
+			|| this.y > Crafty.viewport.height //d
 			|| this.preparing) {
 				this.attr({
 					x : from.x,
 					y : from.y
 				});
 			}
-		}).bind("EnterFrame", function(frame) {
+		//	console.log(this.has("Collision"));
+		}).bind("EnterFrame", function( ) {
 			this.preparing = false;
 			if (this.isFire) {
 				if (this.weapon != null)
 					this.weapon.shot();
 			}
-			this.rotation += 0.5;
+			//this.rotation += 0.5;
 			if (this.isSlow) {
 				this.multiway(this.movementSpeed * 0.45, this.moveControls);
 			} else {
 				this.multiway(this.movementSpeed, this.moveControls);
 			}
-			this.center.x = this.x + this.w / 2;
-			this.center.y = this.y + this.h / 2;
 			//console.log(this.center);
 		}).bind("KeyDown", function(e) {
 			if (e.keyCode === Crafty.keys.SPACE) {
@@ -55,9 +50,9 @@ Crafty.c("Player", {
 			}
 		}).reset();
 		this.z = zIndex.Player;
-		this.playerCollision = Crafty.e("PlayerCollider", "MySprite", "Collision", "sprite_player_collision");
-		this.playerCollision.x = this.center.x - this.playerCollision.w / 2;
-		this.playerCollision.y = this.center.y - this.playerCollision.h / 2;
+		this.playerCollision = Crafty.e("PlayerCollider", "Collision", "playerCollision.png","SolidHitBox");
+		this.playerCollision.x = this.x;
+		this.playerCollision.y = this.y;
 		this.playerCollision.z = zIndex.PlaterCollider;
 		this.attach(this.playerCollision);
 
@@ -65,25 +60,18 @@ Crafty.c("Player", {
 	},
 	reset : function() {
 		Crafty.trigger("UpdateStats");
-		this.setPos(Crafty.viewport.width / 2, Crafty.viewport.height - 100);
-		this.center.x = this.x + this.w / 2;
-		this.center.y = this.y + this.h / 2;
+		this.x = Crafty.viewport.width / 2;
+		this.y = Crafty.viewport.height - 100;
 		this.preparing = true;
 		//this.alpha=0;
 	},
 	setWeapon : function(_weapon) {
 		this.weapon = _weapon;
 		this.attach(this.weapon);
-		_weapon.x = this.center.x;
-		_weapon.y = this.center.y - 20;
+		_weapon.x = this.x;
+		_weapon.y = this.y - 20;
 		_weapon.rotation = -90;
 		//this.weapon.onWeaponAttached(this);
-	},
-	setPos : function(cx, cy) {
-		this.x = cx - this.w / 2;
-		this.y = cy - this.h / 2;
-		this.center.x = cx;
-		this.center.y = cy;
 	},
 	moveControls : {
 		UP_ARROW : -90,

@@ -12,7 +12,7 @@ p1.prototype.onInited = function() {
 p1.prototype.onEachShot = function(frame, i) {
 	var angle = (this.shotAngle + i * this.intervalAngle) - (this.shotRange / 2);
 	var v = 250;
-	var bullet = createBulletById("bullet_" + this.bulletId);
+	var bullet = createEnemyBullet("bullet_" + this.bulletId);
 	bullet.addComponent("EnemyBullet");
 	bullet.v = Crafty.math.randomInt(200, 250);
 	bullet.moveAngle = angle;
@@ -36,7 +36,7 @@ p2.prototype.init = function() {
 p2.prototype.onEachShot = function(frame, i) {
 	var angle = this.aimPlayerAngle() + Crafty.math.randomInt(-10, 10);
 	var v = 150;
-	var bullet = createBulletById("bullet_" + this.bulletId);
+	var bullet = createEnemyBullet("bullet_" + this.bulletId);
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.a = 5;
@@ -51,7 +51,7 @@ var p3 = function() {
 p3.prototype = new ShotPattern();
 p3.prototype.init = function() {
 	var _this = ShotPattern.prototype.init.call(this);
-	this.loop = 10;
+	this.loop = 30;
 	this.shots = 25;
 	this.shotRange = 360;
 	this.shotAngle = 90;
@@ -63,7 +63,7 @@ p3.prototype.init = function() {
 p3.prototype.onEachShot = function(frame, i) {
 	var angle = (this.shotAngle + i * this.intervalAngle) - (this.shotRange / 2);
 	var v = 250;
-	var bullet = createBulletById("bullet_" + this.bulletId);
+	var bullet = createEnemyBullet("bullet_" + this.bulletId);
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.moveAngle = angle;
@@ -89,7 +89,7 @@ p4.prototype.init = function() {
 p4.prototype.onEachShot = function(frame, i) {
 	var angle = (this.shotAngle + i * this.intervalAngle) - (this.shotRange / 2);
 	var v = randomInt(250, 300);
-	var bullet = createBulletById("bullet_" + this.bulletId);
+	var bullet = createEnemyBullet("bullet_" + this.bulletId);
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 
@@ -125,7 +125,7 @@ p5.prototype.onEachShot = function(frame, i) {
 		v = 120;
 		angle = (this.shotAngle + i * intervalAngle) - (this.shotRange * 0.5) + intervalAngle * 0.5;
 	}
-	var bullet = createBulletById("bullet_" + this.bulletId);
+	var bullet = createEnemyBullet("bullet_" + this.bulletId);
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.moveAngle = angle;
@@ -152,7 +152,7 @@ p6.prototype.onEachShot = function(frame, i) {
 	var da = this.loopCount * 25;
 	var angle = (this.shotAngle + i * this.intervalAngle) - (this.shotRange * 0.5) + da;
 	var v = 200;
-	var bullet = createBulletById("bullet_" + this.bulletId);
+	var bullet = createEnemyBullet("bullet_" + this.bulletId);
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.moveAngle = angle;
@@ -183,7 +183,7 @@ p7.prototype.onEachShot = function(frame, i) {
 		halfRange = 0;
 	var angle = (this.shotAngle + i * this.intervalAngle) - halfRange + da;
 	var v = 200;
-	var bullet = createBulletById("bullet_" + this.bulletId);
+	var bullet = createEnemyBullet("bullet_" + this.bulletId);
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.moveAngle = angle;

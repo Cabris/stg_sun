@@ -39,7 +39,7 @@ Crafty.scene("Level1", function() {
 	e1.hp = 10;
 	e1.addComponent(Com.luncher);
 	e1.addComponent(Com.modifierContainer);
-	e1.lunchEvents = ps2;
+	e1.lunchEvents = ps1;
 	// moveM = new MoveModifier(e.x, e.y, e.x + 100, e.y - 80, 150);
 	// moveM.startTime=150;
 	// e.addModifier(moveM);

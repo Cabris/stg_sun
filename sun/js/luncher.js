@@ -1,6 +1,6 @@
 var ps1 = [{
 	start : 60,
-	pattern : "7"
+	pattern : "3"
 }];
 
 var ps2 = [{

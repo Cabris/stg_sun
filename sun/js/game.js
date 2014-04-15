@@ -14,7 +14,7 @@ var Game = {
 			}
 
 			frames.forEach(function(e) {
-				console.log("loaded: " + e);
+				//console.log("loaded: " + e);
 				CraetePixiSprite(e);
 			});
 		}
@@ -62,7 +62,6 @@ var Game = {
 				return 1;
 			return 0;
 		}
-
 
 		PixiSpriteBatch.children.sort(depthCompare);
 		//console.log(PixiSpriteBatch.children);
