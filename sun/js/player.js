@@ -50,12 +50,13 @@ Crafty.c("Player", {
 			}
 		}).reset();
 		this.z = zIndex.Player;
-		this.playerCollision = Crafty.e("PlayerCollider", "Collision", "playerCollision.png","SolidHitBox");
+		this.playerCollision = Crafty.e("PlayerCollider", 
+		"Collision", "playerCollision.png","SolidHitBox");
 		this.playerCollision.x = this.x;
 		this.playerCollision.y = this.y;
 		this.playerCollision.z = zIndex.PlaterCollider;
 		this.attach(this.playerCollision);
-
+//this.playerCollision.rotation=45;
 		return this;
 	},
 	reset : function() {

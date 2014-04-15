@@ -7,13 +7,16 @@ p1.prototype.onInited = function() {
 	this.loop = 5;
 	this.shotAngle = this.aimPlayerAngle();
 	this.shots = 4;
-	this.bulletId = 1;
+	this.shotInterval = 25;
+	this.bulletId = 200;
 };
 p1.prototype.onEachShot = function(frame, i) {
 	var angle = (this.shotAngle + i * this.intervalAngle) - (this.shotRange / 2);
 	var v = 250;
-	var bullet = createEnemyBullet("bullet_" + this.bulletId);
+	var bullet = createEnemyBullet("bullet_" + (this.bulletId));
 	bullet.addComponent("EnemyBullet");
+	bullet.sprite.blendMode = PIXI.blendModes.SCREEN;
+	
 	bullet.v = Crafty.math.randomInt(200, 250);
 	bullet.moveAngle = angle;
 	bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
@@ -51,11 +54,11 @@ var p3 = function() {
 p3.prototype = new ShotPattern();
 p3.prototype.init = function() {
 	var _this = ShotPattern.prototype.init.call(this);
-	this.loop = 30;
-	this.shots = 25;
+	this.loop = 10;
+	this.shots = 20;
 	this.shotRange = 360;
 	this.shotAngle = 90;
-	this.shotInterval = 5;
+	this.shotInterval = 8;
 	this.bulletId = 61;
 	//this.addComponent("PlayerAim");
 	return _this;
@@ -191,6 +194,37 @@ p7.prototype.onEachShot = function(frame, i) {
 	return bullet;
 };
 
+//360 debug
+var p3debug = function() {
+};
+p3debug.prototype = new ShotPattern();
+p3debug.prototype.init = function() {
+	var _this = ShotPattern.prototype.init.call(this);
+	this.loop = 30;
+	this.shots = 100;
+	this.shotRange = 360;
+	this.shotAngle = 90;
+	this.shotInterval = 5;
+	this.bulletId = 61;
+	//this.addComponent("PlayerAim");
+	return _this;
+};
+p3debug.prototype.onEachShot = function(frame, i) {
+	var angle = (this.shotAngle + i * this.intervalAngle) - (this.shotRange / 2);
+	var v = 250;
+	var na="bullet_" + this.bulletId;
+	var bullet = {sprite:PIXI.Sprite.fromFrame(na),luncher:null};
+	AddSprite(bullet.sprite);
+	bullet.sprite.position.x=this.x+i*10+this.loopCount*10;
+	bullet.sprite.position.y=this.y+i*10;
+	bullet.sprite.z=zIndex.Bullet;
+	//bullet.addComponent("EnemyBullet");
+	// bullet.v = v;
+	// bullet.moveAngle = angle;
+	// bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	return bullet;
+};
+
 Crafty.c("p1", new window["p1"]());
 Crafty.c("p2", new window["p2"]());
 Crafty.c("p3", new window["p3"]());
@@ -198,3 +232,5 @@ Crafty.c("p4", new window["p4"]());
 Crafty.c("p5", new window["p5"]());
 Crafty.c("p6", new window["p6"]());
 Crafty.c("p7", new window["p7"]());
+Crafty.c("p3debug", new window["p3debug"]());
+

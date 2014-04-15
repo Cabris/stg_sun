@@ -17,12 +17,12 @@ Crafty.scene("Level1", function() {
 
 	PixiSpriteBatch.addChild(pondFloorSprite);
 
-	var e = Crafty.e(Com.enemy, "sprite_enemy1").origin("center");
+	var e = Crafty.e(Com.enemy, "enemy.png");
 	e.setPos(Crafty.viewport.width / 2 , Crafty.viewport.height / 2 - 300);
 	e.hp = 10;
 	e.addComponent(Com.luncher);
 	e.addComponent(Com.modifierContainer);
-	e.lunchEvents = ps1;
+	e.lunchEvents = ps2;
 	var modifier = new Modifier();
 	//modifier.startTime = 20;
 	//modifier.finishTime = 40;
@@ -33,14 +33,14 @@ Crafty.scene("Level1", function() {
 
 	var moveM = new MoveModifier(e.x, e.y, e.x, e.y + 400, 120);
 	moveM.startTime = 50;
-	//e.addModifier(moveM);
+	e.addModifier(moveM);
 
-	// var e1 = Crafty.e(Com.enemy, "sprite_enemy1").origin("center");
+	// var e1 = Crafty.e(Com.enemy, "enemy.png");
 	// e1.setPos(Crafty.viewport.width / 2 - 200, Crafty.viewport.height / 2 - 300);
 	// e1.hp = 10;
 	// e1.addComponent(Com.luncher);
 	// e1.addComponent(Com.modifierContainer);
-	// e1.lunchEvents = ps1;
+	// e1.lunchEvents = ps2;
 
 	// moveM = new MoveModifier(e.x, e.y, e.x + 100, e.y - 80, 150);
 	// moveM.startTime=150;
@@ -71,6 +71,6 @@ DebugMsg.update = function(f) {
 	var scoreDiv = document.getElementById("scoreDiv");
 	//console.log(scoreDiv);
 	scoreDiv.innerHTML = debugText;
-	var t = "b: " + BulletManager.busyPool.length + ", f: " + BulletManager.freePool.length;
-	debugText=t;
+	// var t = "b: " + BulletManager.busyPool.length + ", f: " + BulletManager.freePool.length;
+	// debugText=t;
 };

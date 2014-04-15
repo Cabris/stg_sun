@@ -1,16 +1,17 @@
-
 PixiSprite = function(name) {
 	this.name = name;
 	this.sprite = null;
+	this.c = false;
 	//console.log(name+"::new");
 };
 
 PixiSprite.prototype.init = function() {
-	 this.sprite = PIXI.Sprite.fromFrame(this.name);
+	this.sprite = PIXI.Sprite.fromFrame(this.name);
 	/////neck
 	this.requires("2D");
 	//this.uniqueBind("NewComponent", this.addSprite);
 	this.addSprite(this.name);
+	//this.sprite.blendMode = PIXI.blendModes.ADD;
 	//this.uniqueBind("RemoveComponent", this.removeSprite);
 	this.bind("Remove", this.removeSprite);
 	this.bind("EnterFrame", this.updateSprite);
@@ -43,24 +44,26 @@ PixiSprite.prototype.updateSprite = function(frame) {
 	this.sprite.alpha = this.alpha;
 	this.sprite.z = this.z;
 	this.sprite.rotation = Crafty.math.degToRad(this.rotation);
-
-	if (this.has("Collision")) {
-		var hw = this.w / 2;
-		var hh = this.h / 2;
+	//this.sprite.blendMode = PIXI.blendModes.ADD;
+	//console.log(this.sprite.blendMode+","+this.name);
+	if (this.has("Collision") && !this.c) {
+		var hw = this.w / 2.5;
+		var hh = this.h / 2.5;
 		var p = new Crafty.polygon([hw, -hh], [hw, hh], [-hw, hh], [-hw, -hh]);
-		var c = new Crafty.circle(0, 0, this.w / 2);
+		//var c = new Crafty.circle(0, 0, this.w / 2);
 		this.collision(p);
+		this.c = true;
 	}
 };
 
 function AddSprite(sprite) {
-	if (!PixiSpriteBatch.children.contains(sprite))
-		PixiSpriteBatch.addChild(sprite);
+	if (!Game.PixiStage.children.contains(sprite))
+		Game.PixiStage.addChild(sprite);
 }
 
 function RemoveSprite(sprite) {
-	if (PixiSpriteBatch.children.contains(sprite))
-		PixiSpriteBatch.removeChild(sprite);
+	if (Game.PixiStage.children.contains(sprite))
+		Game.PixiStage.removeChild(sprite);
 }
 
 function GetSprite(id) {
@@ -74,5 +77,7 @@ function CraetePixiSprite(name) {
 function contains(a, b) {
 	return a.indexOf(b) != -1;
 };
-
-
+// PIXI.blendModes.NORMAL;
+// PIXI.blendModes.ADD;
+// PIXI.blendModes.MULTIPLY;
+// PIXI.blendModes.SCREEN; 

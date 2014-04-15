@@ -46,7 +46,8 @@ var Game = {
 		Game.PixiStage.addChild(PixiSpriteBatch);
 
 		Crafty.timer.steptype("variable");
-		Crafty.background('green');
+		
+		//Crafty.background('green');
 
 		Crafty.scene("Level1");
 		Crafty.uniqueBind("RenderScene", Game.draw);

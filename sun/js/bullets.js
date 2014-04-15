@@ -8,15 +8,16 @@ var Bullet = function() {
 	this.weapon = null;
 	this.frameCount = 0;
 };
-Bullet.prototype.setActive=function(isActive){
+Bullet.prototype.setActive = function(isActive) {
 	this.isActive = isActive;
 	if (!this.isActive) {
-		this.x = -5000;
-		this.y = -5000;
+		this.x = 50;
+		this.y = 50;
+		this.destroy();
 	}
 };
 Bullet.prototype.init = function() {
-	this.requires("2D,Canvas,Collision");
+	this.requires("2D,Collision");
 	this.bind("EnterFrame", this.onUpdate);
 	this.z = zIndex.Bullet;
 	this.setActive(true);
@@ -36,18 +37,18 @@ Bullet.prototype.onUpdate = function(frame) {
 	if (!insideView(this)) {
 		this.setActive(false);
 	}
-	var dt = frame.dt / 1000.0;
-	this.rotation = this.moveAngle + 90;
-	//console.log(dt);
-	this.speedR += this.aR;
-	this.xspeed = this.v * Math.cos(this.moveAngle / (180 / Math.PI)) * dt;
-	this.yspeed = this.v * Math.sin(this.moveAngle / (180 / Math.PI)) * dt;
-	this.v += this.a;
-	this.x = this._x + this.xspeed;
-	this.y = this._y + this.yspeed;
-	this.moveAngle += this.speedR;
-	this.frameCount++;
-	
+	if (this.isActive) {
+		var dt = frame.dt / 1000.0;
+		this.rotation = this.moveAngle + 90;
+		this.speedR += this.aR;
+		this.xspeed = this.v * Math.cos(this.moveAngle / (180 / Math.PI)) * dt;
+		this.yspeed = this.v * Math.sin(this.moveAngle / (180 / Math.PI)) * dt;
+		this.v += this.a;
+		this.x = this._x + this.xspeed;
+		this.y = this._y + this.yspeed;
+		this.moveAngle += this.speedR;
+		this.frameCount++;
+	}
 };
 Bullet.prototype.setPos = function(_x, _y) {
 	this.attr({
@@ -81,88 +82,95 @@ function createPlayerBullet(mx, my) {//3,2
 	var bullet = Crafty.e("Bullet", "sprite_bullet_normal", "SpriteAnimation").origin("center");
 	bullet.reel("normal_bullet_colors", 0, mx, my, 1).animate("normal_bullet_colors", 1);
 	bullet.v = 1200;
-	//console.log("10");
 	return bullet;
 }
 
 function createEnemyBullet(id) {//3,2
-	//var bullet = Crafty.e("Bullet", id).origin("center");
-	var bullet = BulletManager.getBullet(id);
-	//console.log(bullet);
-	//	var bullet = createPlayerBullet(0,0);
-	//bullet.reel("normal_bullet_colors", 0, mx, my, 1).animate("normal_bullet_colors", 1);
-	//bullet.v = 1200;
-	//var circle = new Crafty.circle(0, 0, this.w * 0.5);
-	//bullet.collision(circle);
-	//console.log("created: "+id);
+	//var bullet=createPlayerBullet(0,0);
+	//var bullet = BulletManager.getBullet(id);
+	//id="playerCollision.png";
+	var bullet = Crafty.e("Bullet", id);
 	return bullet;
 }
 
 var Bullets = function() {
-	this.maxBulletEachType = 500;
-	this.bulletPool = [];
-	this.freePool = [];
-	this.busyPool = [];
+	this.maxBulletEachType = 300;
+	this.bulletPools = {};
+	// this.freePool = [];
+	// this.busyPool = [];
 	this.init = function() {
 	};
 };
 Bullets.prototype.createBullet = function(id) {
 	var bullet = Crafty.e("Bullet", id).origin("center");
-	this.bulletPool.push(bullet);
+	this.bulletPools[id].push(bullet);
+	console.log("craete: " + id + ", p: " + this.bulletPools[id].length);
 	return bullet;
 };
 Bullets.prototype.getBullet = function(id) {//get a free bullet
 	this.upDatePool();
-	//console.log("getBullet: " + id);
+	if (!this.bulletPools.hasOwnProperty(id)) {
+		this.bulletPools[id] = [];
+		//console.log("hasOwnProperty: " + id);
+		for (var i = 0; i < this.maxBulletEachType; i++) {
+			var _bullet = this.createBullet(id);
+			_bullet.setActive(false);
+		}
+	}
 	var bullet = null;
-	if (hasBullet(this.freePool, id)) {
-		bullet = findFirstBullet(this.freePool, id);
+	if (hasFreeBullet(this.bulletPools, id)) {
+		bullet = findFirstFreeBullet(this.bulletPools, id);
 		bullet.reset();
-		console.log("reuse: " + id);
+		console.log("reuse: " + id + ", p: " + this.bulletPools[id].length);
 	} else {
-		bullet = this.createBullet(id);
-		console.log("craete: " + id);
+	//	bullet = this.createBullet(id);
+		bullet = this.bulletPools[id][0];
 		//console.log(bullet);
+		bullet.reset();
+
 	}
 	return bullet;
 };
 Bullets.prototype.upDatePool = function() {
-	this.busyPool = [];
-	this.freePool = [];
-	
-	
-	
-	
-	for (var i = 0; i < this.bulletPool.length; i++) {
-		var b = this.bulletPool[i];
-		if (b.isActive) {//add to busy
-			if (!this.busyPool.contains(b))
-				this.busyPool.push(b);
-		} else {//add to free
-			if (!this.freePool.contains(b))
-				this.freePool.push(b);
-		}
-	}
+	//this.busyPool = [];
+	//this.freePool = [];
+
+	// for (var i = 0; i < this.bulletPool.length; i++) {
+	// var b = this.bulletPool[i];
+	// if (b.isActive) {//add to busy
+	// if (!this.busyPool.contains(b))
+	// this.busyPool.push(b);
+	// if (this.freePool.contains(b))
+	// remove(this.freePool,b);
+	// } else {//add to free
+	// if (!this.freePool.contains(b))
+	// this.freePool.push(b);
+	// if (this.busyPool.contains(b))
+	// remove(this.busyPool,b);
+	// }
+	// }
 };
 
-function hasBullet(pool, id) {
+function hasFreeBullet(pools, id) {
 	//console.log(id);
+	var pool = pools[id];
 	var t = false;
 	for (var i = 0; i < pool.length; i++) {
 		var b = pool[i];
 		//console.log(b.name);
-		if (b.name == id)
+		if (b.name == id && !b.isActive)
 			t = true;
 	}
 	//console.log("hasBullet: " + t);
 	return t;
 }
 
-function findFirstBullet(pool, id) {
+function findFirstFreeBullet(pools, id) {
 	var bullet = null;
+	var pool = pools[id];
 	for (var i = 0; i < pool.length; i++) {
 		var b = pool[i];
-		if (b.name == id) {
+		if (b.name == id && !b.isActive) {
 			bullet = b;
 			return bullet;
 		}
@@ -179,3 +187,27 @@ function remove(arr, item) {
 }
 
 var BulletManager = new Bullets();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
