@@ -63,6 +63,7 @@ var Game = {
 			return 0;
 		}
 
+
 		PixiSpriteBatch.children.sort(depthCompare);
 		//console.log(PixiSpriteBatch.children);
 	}

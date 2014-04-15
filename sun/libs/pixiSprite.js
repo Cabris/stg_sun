@@ -20,7 +20,7 @@ PixiSprite.prototype.init = function() {
 	this.sprite.anchor.y = 0.5;
 	this.sprite.position.x = -5000;
 	this.sprite.position.y = -5000;
-	console.log("init");
+	//onsole.log("init");
 	return this;
 };
 PixiSprite.prototype.addSprite = function(c) {
@@ -75,12 +75,4 @@ function contains(a, b) {
 	return a.indexOf(b) != -1;
 };
 
-Array.prototype.contains = function(obj) {
-    var i = this.length;
-    while (i--) {
-        if (this[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-};
+

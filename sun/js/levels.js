@@ -3,6 +3,7 @@ Crafty.scene("Level1", function() {
 	var up = Crafty.e("UpdateHandler");
 	up.update = function(f) {
 		Game.sortLayer();
+		BulletManager.upDatePool();
 	};
 
 	var pondFloorTexture = PIXI.Texture.fromImage("BGrotate.jpg");
@@ -17,7 +18,7 @@ Crafty.scene("Level1", function() {
 	PixiSpriteBatch.addChild(pondFloorSprite);
 
 	var e = Crafty.e(Com.enemy, "sprite_enemy1").origin("center");
-	e.setPos(Crafty.viewport.width / 2 + 200, Crafty.viewport.height / 2 - 300);
+	e.setPos(Crafty.viewport.width / 2 , Crafty.viewport.height / 2 - 300);
 	e.hp = 10;
 	e.addComponent(Com.luncher);
 	e.addComponent(Com.modifierContainer);
@@ -34,12 +35,13 @@ Crafty.scene("Level1", function() {
 	moveM.startTime = 50;
 	//e.addModifier(moveM);
 
-	var e1 = Crafty.e(Com.enemy, "sprite_enemy1").origin("center");
-	e1.setPos(Crafty.viewport.width / 2 - 200, Crafty.viewport.height / 2 - 300);
-	e1.hp = 10;
-	e1.addComponent(Com.luncher);
-	e1.addComponent(Com.modifierContainer);
-	e1.lunchEvents = ps1;
+	// var e1 = Crafty.e(Com.enemy, "sprite_enemy1").origin("center");
+	// e1.setPos(Crafty.viewport.width / 2 - 200, Crafty.viewport.height / 2 - 300);
+	// e1.hp = 10;
+	// e1.addComponent(Com.luncher);
+	// e1.addComponent(Com.modifierContainer);
+	// e1.lunchEvents = ps1;
+
 	// moveM = new MoveModifier(e.x, e.y, e.x + 100, e.y - 80, 150);
 	// moveM.startTime=150;
 	// e.addModifier(moveM);
@@ -57,17 +59,18 @@ Crafty.scene("Level1", function() {
 	function updateStats() {
 
 	}
-	
-Game.sortLayer();
+
+
+	Game.sortLayer();
 
 });
 
-Crafty.c("UpdateHandler", {
-	onUpdate : update = function(f) {
-	},
-	init : function() {
-		this.bind("EnterFrame", function(frame) {
-			this.update(frame);
-		});
-	}
-});
+var debugText = "111";
+var DebugMsg = Crafty.e("UpdateHandler");
+DebugMsg.update = function(f) {
+	var scoreDiv = document.getElementById("scoreDiv");
+	//console.log(scoreDiv);
+	scoreDiv.innerHTML = debugText;
+	var t = "b: " + BulletManager.busyPool.length + ", f: " + BulletManager.freePool.length;
+	debugText=t;
+};

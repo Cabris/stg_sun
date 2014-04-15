@@ -1,6 +1,5 @@
 var PixiSpriteBatch;
 var screenSize={w:600,h:800};
-
 var zIndex={
 	Player:10,
 	PlaterCollider:12,

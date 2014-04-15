@@ -64,7 +64,23 @@ function insideView(obj) {
 	return !t;
 }
 
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+};
 
-
-
+Crafty.c("UpdateHandler", {
+	onUpdate : update = function(f) {
+	},
+	init : function() {
+		this.bind("EnterFrame", function(frame) {
+			this.update(frame);
+		});
+	}
+});
 
