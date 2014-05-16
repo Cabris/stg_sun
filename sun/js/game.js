@@ -2,7 +2,7 @@ var Game = {
 	PixiStage : null,
 	PixiRenderer : null,
 	load : function() {
-		var assetsToLoader = ["images/stage.json", "images/bullet/kuushot.json"];
+		var assetsToLoader = ["images/stage.json", "images/bullet/kuushot.json","images/bullet/colors01.json"];
 		loader = new PIXI.AssetLoader(assetsToLoader);
 
 		function onAssetsLoading(asset) {

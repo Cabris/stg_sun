@@ -3,7 +3,7 @@ Crafty.scene("Level1", function() {
 	var up = Crafty.e("UpdateHandler");
 	up.update = function(f) {
 		Game.sortLayer();
-		BulletManager.upDatePool();
+		// BulletManager.upDatePool();
 	};
 
 	var pondFloorTexture = PIXI.Texture.fromImage("BGrotate.jpg");
@@ -17,21 +17,23 @@ Crafty.scene("Level1", function() {
 
 	PixiSpriteBatch.addChild(pondFloorSprite);
 
-	var e = Crafty.e(Com.enemy, "enemy.png");
+	var e = Crafty.e(Com.enemy, "enemy.png","SolidHitBox");
 	e.setPos(Crafty.viewport.width / 2 , Crafty.viewport.height / 2 - 300);
 	e.hp = 10;
 	e.addComponent(Com.luncher);
 	e.addComponent(Com.modifierContainer);
 	e.lunchEvents = ps2;
 	var modifier = new Modifier();
-	//modifier.startTime = 20;
-	//modifier.finishTime = 40;
+	modifier.startTime = 20;
+	modifier.finishTime = 40;
 	modifier.duration = 20;
 	modifier.onUpdate = function(f, _m) {
+		_m.y+=2;
 	};
+	e.rotation=45;
 	//e.addModifier(modifier);
 
-	var moveM = new MoveModifier(e.x, e.y, e.x, e.y + 400, 120);
+	var moveM = new MoveModifier(e.x, e.y, e.x, e.y + 100, 120);
 	moveM.startTime = 50;
 	e.addModifier(moveM);
 

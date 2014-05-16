@@ -13,6 +13,7 @@ Bullet.prototype.setActive = function(isActive) {
 	if (!this.isActive) {
 		this.x = 50;
 		this.y = 50;
+		this.removeComponent("Collision");
 		this.destroy();
 	}
 };
@@ -79,8 +80,11 @@ EnemyBullet.prototype.toPoint = function() {
 Crafty.c(Com.enemyBullet, new EnemyBullet());
 
 function createPlayerBullet(mx, my) {//3,2
-	var bullet = Crafty.e("Bullet", "sprite_bullet_normal", "SpriteAnimation").origin("center");
-	bullet.reel("normal_bullet_colors", 0, mx, my, 1).animate("normal_bullet_colors", 1);
+	// var bullet = Crafty.e("Bullet", "sprite_bullet_normal", "SpriteAnimation").origin("center");
+	// bullet.reel("normal_bullet_colors", 0, mx, my, 1).animate("normal_bullet_colors", 1);
+	
+	var bullet = Crafty.e("Bullet", "pBullet_2");
+	//bullet.reel("normal_bullet_colors", 0, mx, my, 1).animate("normal_bullet_colors", 1);
 	bullet.v = 1200;
 	return bullet;
 }
@@ -92,7 +96,7 @@ function createEnemyBullet(id) {//3,2
 	var bullet = Crafty.e("Bullet", id);
 	return bullet;
 }
-
+/*
 var Bullets = function() {
 	this.maxBulletEachType = 300;
 	this.bulletPools = {};
@@ -178,16 +182,10 @@ function findFirstFreeBullet(pools, id) {
 	return bullet;
 }
 
-function remove(arr, item) {
-	for (var i = arr.length; i--; ) {
-		if (arr[i] === item) {
-			arr.splice(i, 1);
-		}
-	}
-}
+
 
 var BulletManager = new Bullets();
-
+*/
 
 
 

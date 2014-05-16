@@ -30,10 +30,11 @@ Crafty.c("PlayerWeapon", {
 			bullet.h *= 0.8;
 			bullet.setPos(this.x, this.y);
 			bullet.onHit("Enemy", function(ent) {
+				//console.log(ent);
 				var obj = ent[0].obj;
 				if (obj != null)
 					obj.onDamage(bullet);
-				this.destroy();
+				bullet.destroy();
 			});
 			//Crafty.audio.play("shot1",1,0.8);
 		}

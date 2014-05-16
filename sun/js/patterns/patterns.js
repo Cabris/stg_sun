@@ -19,7 +19,7 @@ p1.prototype.onEachShot = function(frame, i) {
 	
 	bullet.v = Crafty.math.randomInt(200, 250);
 	bullet.moveAngle = angle;
-	bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	bullet.setPos(this.x , this.y );
 	return bullet;
 };
 
@@ -44,7 +44,7 @@ p2.prototype.onEachShot = function(frame, i) {
 	bullet.v = v;
 	bullet.a = 5;
 	bullet.moveAngle = angle;
-	bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	bullet.setPos(this.x , this.y );
 	return bullet;
 };
 
@@ -70,7 +70,7 @@ p3.prototype.onEachShot = function(frame, i) {
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.moveAngle = angle;
-	bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	bullet.setPos(this.x , this.y );
 	return bullet;
 };
 
@@ -97,7 +97,7 @@ p4.prototype.onEachShot = function(frame, i) {
 	bullet.v = v;
 
 	bullet.moveAngle = angle;
-	bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	bullet.setPos(this.x , this.y );
 
 	bullet.addComponent("TrackBullet");
 	bullet.startTrackTime = 20;
@@ -132,7 +132,7 @@ p5.prototype.onEachShot = function(frame, i) {
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.moveAngle = angle;
-	bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	bullet.setPos(this.x , this.y );
 	//bullet.aR=0.001;
 	return bullet;
 };
@@ -159,7 +159,7 @@ p6.prototype.onEachShot = function(frame, i) {
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.moveAngle = angle;
-	bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	bullet.setPos(this.x , this.y );
 	return bullet;
 };
 
@@ -190,7 +190,7 @@ p7.prototype.onEachShot = function(frame, i) {
 	bullet.addComponent("EnemyBullet");
 	bullet.v = v;
 	bullet.moveAngle = angle;
-	bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	bullet.setPos(this.x , this.y );
 	return bullet;
 };
 
@@ -221,7 +221,7 @@ p3debug.prototype.onEachShot = function(frame, i) {
 	//bullet.addComponent("EnemyBullet");
 	// bullet.v = v;
 	// bullet.moveAngle = angle;
-	// bullet.setPos(this.x + this.w / 2, this.y + this.h / 2);
+	// bullet.setPos(this.x , this.y );
 	return bullet;
 };
 

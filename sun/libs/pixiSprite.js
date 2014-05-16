@@ -47,11 +47,12 @@ PixiSprite.prototype.updateSprite = function(frame) {
 	//this.sprite.blendMode = PIXI.blendModes.ADD;
 	//console.log(this.sprite.blendMode+","+this.name);
 	if (this.has("Collision") && !this.c) {
-		var hw = this.w / 2.5;
-		var hh = this.h / 2.5;
+		var hw = this.w /2;
+		var hh = this.h /2;
 		var p = new Crafty.polygon([hw, -hh], [hw, hh], [-hw, hh], [-hw, -hh]);
 		//var c = new Crafty.circle(0, 0, this.w / 2);
 		this.collision(p);
+		//this.map.shift(-hw, -hh);
 		this.c = true;
 	}
 };
